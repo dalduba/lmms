@@ -37,8 +37,9 @@
 #include "TabButton.h"
 
 #include "embed.cpp"
-
-
+#include "PythonQt.h"
+#include "../extensions/PythonQt_QtAll/PythonQt_QtAll.h"
+#include "gui/PythonQtScriptingConsole.h"
 
 extern "C"
 {
@@ -72,6 +73,12 @@ Plugin * PLUGIN_EXPORT lmms_plugin_main( Model * _parent, void * _data )
 pythonRunner::pythonRunner() :
     ToolPlugin( &python_runner_plugin_descriptor, NULL )
 {
+//    PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
+//    PythonQt_QtAll::init();
+
+//    PythonQtObjectPtr  mainContext = PythonQt::self()->getMainModule();
+//    PythonQtScriptingConsole console(NULL, mainContext);
+//    console.show();
 }
 
 
