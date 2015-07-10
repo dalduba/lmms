@@ -24,46 +24,37 @@
  *
  */
 
-#ifndef _LADSPA_BROWSER_H
-#define _LADSPA_BROWSER_H
+#ifndef _PYTHON_RUNNER_H
+#define _PYTHON_RUNNER_H
 
-#include "LadspaManager.h"
 #include "ToolPlugin.h"
 #include "ToolPluginView.h"
 
 class TabBar;
 
 
-class ladspaBrowserView : public ToolPluginView
+class pythonRunnerView : public ToolPluginView
 {
 	Q_OBJECT
 public:
-	ladspaBrowserView( ToolPlugin * _tool );
-	virtual ~ladspaBrowserView();
-
-
-public slots:
-	void showPorts( const ladspa_key_t & _key );
-
+    pythonRunnerView( ToolPlugin * _tool );
+    virtual ~pythonRunnerView();
 
 private:
 	TabBar * m_tabBar;
 
-	QWidget * createTab( QWidget * _parent, const QString & _txt,
-						ladspaPluginType _type );
-
 } ;
 
 
-class ladspaBrowser : public ToolPlugin
+class pythonRunner : public ToolPlugin
 {
 public:
-	ladspaBrowser();
-	virtual ~ladspaBrowser();
+    pythonRunner();
+    virtual ~pythonRunner();
 
 	virtual PluginView * instantiateView( QWidget * )
 	{
-		return new ladspaBrowserView( this );
+        return new pythonRunnerView( this );
 	}
 
 	virtual QString nodeName() const;
