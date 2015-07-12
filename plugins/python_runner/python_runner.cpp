@@ -38,8 +38,10 @@
 
 #include "embed.cpp"
 #include "PythonQt.h"
+#include "../extensions/PythonQt_QtAll/PythonQt_QtAll.h"
 #include "gui/PythonQtScriptingConsole.h"
 #include "AutomatableModelView.h"
+extern void PythonQt_init_QtGui(PyObject*);
 extern "C"
 {
 
@@ -120,6 +122,8 @@ pythonRunnerView::pythonRunnerView( ToolPlugin * _tool ) :
 	hlayout->setMargin( 0 );
 
     PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
+//    PythonQt_QtAll::init();
+    PythonQt_init_QtGui(0);
     PythonQtObjectPtr  mainContext = PythonQt::self()->getMainModule();
     PythonQt::self()->registerClass(&QPushButton::staticMetaObject, "QtGui");
     m_console = new PythonQtScriptingConsole(0, mainContext);
