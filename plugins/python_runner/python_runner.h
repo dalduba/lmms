@@ -30,6 +30,8 @@
 #include "ToolPlugin.h"
 #include "ToolPluginView.h"
 #include <QPushButton>
+#include <QTabWidget>
+#include <QListView>
 #include "gui/PythonQtScriptingConsole.h"
 
 class TabBar;
@@ -43,7 +45,7 @@ public:
     virtual ~pythonRunnerView();
 
 private:
-	TabBar * m_tabBar;
+    QTabWidget * m_tabBar;
     QPushButton *m_button;
     PythonQtScriptingConsole *m_console;
 private slots:

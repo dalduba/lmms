@@ -115,23 +115,40 @@ void pythonRunnerView::handleButton()
 pythonRunnerView::pythonRunnerView( ToolPlugin * _tool ) :
 	ToolPluginView( _tool  )
 {
-	QHBoxLayout * hlayout = new QHBoxLayout( this );
+    QVBoxLayout * hlayout = new QVBoxLayout( this );
 	hlayout->setSpacing( 0 );
 	hlayout->setMargin( 0 );
 
     PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
     PythonQtObjectPtr  mainContext = PythonQt::self()->getMainModule();
+    PythonQt::self()->registerClass(&QPushButton::staticMetaObject, "QtGui");
     m_console = new PythonQtScriptingConsole(0, mainContext);
-
+//    m_console->appendCommandPrompt();
 //     m_button = new QPushButton("My Button", this);
 //     connect(m_button, SIGNAL (released()), this, SLOT (handleButton()));
-     QWidget * ws = m_console;
-     ws->setFixedSize( 500, 480 );
-     hlayout->addSpacing( 10 );
+    m_tabBar = new QTabWidget( this);
+//    m_tabBar->setExclusive( true );
+//    m_tabBar->setFixedWidth( 72 );
+    QWidget * scripts = new QWidget( m_tabBar );
+    QHBoxLayout * scriptsh_layout = new QHBoxLayout( scripts );
+    QListView *scripts_list = new QListView(scripts);
+
+    scripts_list->setMaximumWidth(200);
+    scriptsh_layout->addWidget(scripts_list);
+
+    QWidget * script_gui = new QWidget( scripts );
+     scriptsh_layout->addWidget(script_gui);
+
+    m_tabBar->addTab( scripts, tr( "Scripts" ));
+    hlayout->addWidget( m_tabBar );
+    m_console->setMaximumHeight(150);
+    QWidget * ws = m_console;
+//     ws->setFixedSize( 500, 480 );
+//     hlayout->addSpacing( 10 );
 
      hlayout->addWidget( ws );
-     hlayout->addSpacing( 10 );
-     hlayout->addStretch();
+//     hlayout->addSpacing( 10 );
+//     hlayout->addStretch();
 
     setWhatsThis( tr(
 "This is dialog for python scripts running" ) );
