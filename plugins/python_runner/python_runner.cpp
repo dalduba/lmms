@@ -38,7 +38,6 @@
 
 #include "embed.cpp"
 #include "PythonQt.h"
-#include "../extensions/PythonQt_QtAll/PythonQt_QtAll.h"
 #include "gui/PythonQtScriptingConsole.h"
 #include "AutomatableModelView.h"
 extern "C"
@@ -73,10 +72,6 @@ Plugin * PLUGIN_EXPORT lmms_plugin_main( Model * _parent, void * _data )
 pythonRunner::pythonRunner() :
     ToolPlugin( &python_runner_plugin_descriptor, NULL )
 {
-    int f = 0;
-//   qFatal("AAAAAAAAAAAAAAAAA") ;
-
-
 }
 
 
@@ -120,18 +115,11 @@ void pythonRunnerView::handleButton()
 pythonRunnerView::pythonRunnerView( ToolPlugin * _tool ) :
 	ToolPluginView( _tool  )
 {
-    qCritical("AAAAAAAAAAAAAAAAA") ;
 	QHBoxLayout * hlayout = new QHBoxLayout( this );
 	hlayout->setSpacing( 0 );
 	hlayout->setMargin( 0 );
 
-//	m_tabBar = new TabBar( this, QBoxLayout::TopToBottom );
-//	m_tabBar->setExclusive( true );
-//	m_tabBar->setFixedWidth( 72 );
-
     PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
-    PythonQt_QtAll::init();
-
     PythonQtObjectPtr  mainContext = PythonQt::self()->getMainModule();
     m_console = new PythonQtScriptingConsole(0, mainContext);
 
@@ -145,13 +133,13 @@ pythonRunnerView::pythonRunnerView( ToolPlugin * _tool ) :
      hlayout->addSpacing( 10 );
      hlayout->addStretch();
 
-//	setWhatsThis( tr(
-//"This is dialog for python scripts running" ) );
+    setWhatsThis( tr(
+"This is dialog for python scripts running" ) );
 
-//	hide();
-//	if( parentWidget() )
-//	{
-//		parentWidget()->hide();
+    hide();
+    if( parentWidget() )
+    {
+        parentWidget()->hide();
 //		parentWidget()->layout()->setSizeConstraint(
 //							QLayout::SetFixedSize );
 		
@@ -159,7 +147,7 @@ pythonRunnerView::pythonRunnerView( ToolPlugin * _tool ) :
 //		flags |= Qt::MSWindowsFixedSizeDialogHint;
 //		flags &= ~Qt::WindowMaximizeButtonHint;
 //		parentWidget()->setWindowFlags( flags );
-//	}
+    }
 
 }
 
